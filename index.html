@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="description"
         content="">
-  <meta name="keywords" content="3D facial animation, Speech-driven, Emotion">
+  <meta name="keywords" content="3D facial animation, Text-driven, Text-to-Speech">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EAVANET</title>
 
@@ -48,7 +48,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title"> <strong>EavaNet: Enhancing Emotional Facial Expressions in 3D Avatars through Speech-Driven Animation</strong> </h1>
+          <h1 class="title is-1 publication-title"> <strong>Avatron: 3D Face Avatar and Voice Generation from Text</strong> </h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a> </a></span>
@@ -66,7 +66,7 @@
         <iframe width="840" height="470" src="https://www.youtube.com/embed/8-BGlyllSms?si=f1oNwKdxjTYfVWNy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
         <h2 class="subtitle has-text-centered">
-        <strong>Eavanet</strong> can create expressive emotional 3D facial animation using style embedding and control the intensity of emotions.
+        <strong>Avatron</strong> can efficiently generate expressive 3D facial animation from text. 
       </h2>
     </div>
   </div>
@@ -80,7 +80,12 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Speech-driven 3D facial animation models are essential for creating human-like avatars that can realistically synchronize their lips to speech. However, it is still difficult to effectively convey a wide range of emotional facial expressions that correspond to the voice. This issue arises due to the lack of clearly labeled datasets for individual emotions as well as insufficient inputs to describe them. To overcome this challenge and make it easier to create expressive avatars, we propose a re-categorization process that reduces the data into four emotional groups: angry, sad, happy, and neutral. We use the re-categorized datasets to estimate style embeddings, which are used to clearly express emotions and control their strength. Additionally, we address the issue of overly smoothed facial expressions caused by error propagation in autoregressive models. To overcome this issue, we develop a non-autoregressive model called EavaNet that employs gated activation units (GAUs) and bidirectional long short-term memory (BLSTM) modules to accurately predict the vertices of a 3D face mesh. Our proposed model outperforms previous state-of-the-art models in terms of emotional expressivity and lip synchronization accuracy in both subjective and objective evaluations.
+Speech-driven 3D facial animation models are pivotal components in a variety of human interaction systems. However, speech-driven method is affected by quality of input speech; low quality speech makes bad quality 3D avatar.
+Also, it is impossible to change the content of the input speech of the avatar model unless the text-to-speech (TTS) model which involves an inefficient pipeline: converting text to speech and subsequently generating a 3D avatar from the synthesized speech. It requires huge memory and computational time.
+To overcome this constraint, we propose an innovative approach for 3D facial animation that effectively merges these two domains. 
+Our model takes advantage of intermediate features derived from the alignment of text and speech, which are then utilized as input for an avatar decoder to transform them into the vertices of a 3D facial animation. We do not need an automatic speech recognition (ASR) model that is usually used in speech-driven approaches to extract context features from speech.
+Since our model enables a unified approach that involves a thorough analysis of the interplay between lip movement, text, and speech characteristics, it delivers exceptional performance while substantially reducing both the number of parameters and computational complexity. 
+We demonstrate the efficacy of our model by assessing it in terms of the mean square error of vertices and through user study that include ABX test comparisons.
           </p>
         </div>
       </div>
@@ -93,7 +98,7 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Proposed Method</h2>
         <div class="content has-text-justified">
-          <img src="./static/images/architecture_yj.png" alt="Italian Trulli">
+          <img src="./static/images/avatron_archi.png" alt="Italian Trulli">
           <p>
             <br>
             The emotional speech inputs to the audio encoder to model contextual information, then they are downsampled by convolution layers and fed into the GAU by adding style embedding and speaker embedding. The output of GAU is converted to the vertices of 3D face mesh after passing through BLSTM and projection layers. During training, the style embeddings are estimated from the style vertices of the target emotion but not from the target vertices. In the inference process the center of each emotion cluster is used instead. 
