@@ -80,12 +80,13 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-Speech-driven 3D facial animation models are pivotal components in a variety of human interaction systems. However, speech-driven method is affected by quality of input speech; low quality speech makes bad quality 3D avatar.
-Also, it is impossible to change the content of the input speech of the avatar model unless the text-to-speech (TTS) model which involves an inefficient pipeline: converting text to speech and subsequently generating a 3D avatar from the synthesized speech. It requires huge memory and computational time.
-To overcome this constraint, we propose an innovative approach for 3D facial animation that effectively merges these two domains. 
-Our model takes advantage of intermediate features derived from the alignment of text and speech, which are then utilized as input for an avatar decoder to transform them into the vertices of a 3D facial animation. We do not need an automatic speech recognition (ASR) model that is usually used in speech-driven approaches to extract context features from speech.
-Since our model enables a unified approach that involves a thorough analysis of the interplay between lip movement, text, and speech characteristics, it delivers exceptional performance while substantially reducing both the number of parameters and computational complexity. 
-We demonstrate the efficacy of our model by assessing it in terms of the mean square error of vertices and through user study that include ABX test comparisons.
+Speech-driven 3D facial animation models are pivotal components in a variety of human interaction systems. 
+However, speech-driven methods are strongly dependent on the quality of input speech, and there are no ways of flexibly changing the content of the speech without re-recording, which can be costly and time-consuming.
+Using text-to-speech (TTS) as an intermediate step offers an avenue to generate 3D avatars for any content, but involves an inefficient pipeline: converting text to speech and subsequently generating a 3D avatar from the synthesized speech.
+In order to overcome this constraint, we propose a novel approach for 3D facial animation that effectively merges these two domains. 
+Our model takes advantage of intermediate features derived from the alignment of text and speech, which are then utilized as input for an avatar decoder to transform them into the vertices of a 3D facial animation.
+By jointly modeling lip movements, text, and speech characteristics, we are able to achieve exceptional performance while substantially reducing the number of model parameters and computational complexity. 
+We demonstrate the efficacy of our model by assessing it in terms of the mean square error of 3D mesh vertices and through a user study that includes ABX test comparisons.
           </p>
         </div>
       </div>
@@ -98,10 +99,10 @@ We demonstrate the efficacy of our model by assessing it in terms of the mean sq
       <div class="column is-four-fifths">
         <h2 class="title is-3">Proposed Method</h2>
         <div class="content has-text-justified">
-          <img src="./static/images/avatron_archi.png" alt="Italian Trulli">
+          <img src="./static/images/architecture.pdf" alt="Italian Trulli">
           <p>
             <br>
-            The emotional speech inputs to the audio encoder to model contextual information, then they are downsampled by convolution layers and fed into the GAU by adding style embedding and speaker embedding. The output of GAU is converted to the vertices of 3D face mesh after passing through BLSTM and projection layers. During training, the style embeddings are estimated from the style vertices of the target emotion but not from the target vertices. In the inference process the center of each emotion cluster is used instead. 
+            Architecture of Avatron. The TTS model in the left blue box generates a mel-spectrogram from phoneme sequences, and the reference mel-spectrogram is used to train the internal aligner and speaker encoder. During inference, in the right blue box, the duration predictor is utilized in place of the internal aligner. The speech-to-animation model in the green box predicts the vertices of a 3D face mesh by leveraging upsampled phonemes and their corresponding label embeddings. To simplify the diagram, the duration predictor in training phase and the pitch and energy encoders are omitted.
 
           </p>
           <!-- <p>
